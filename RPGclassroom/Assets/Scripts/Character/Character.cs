@@ -12,7 +12,7 @@ public class Character
 		set { exp = value; }
 	}
 
-	Character()
+	public Character()
 	{
 		exp = 0;
 		uid = 0;

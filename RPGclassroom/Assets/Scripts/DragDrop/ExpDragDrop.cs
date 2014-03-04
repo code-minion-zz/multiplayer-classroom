@@ -16,5 +16,6 @@ public class ExpDragDrop : CharacterDragDropItem
 				cvc.GiveExp(ExpValue);
 			}
 		}
+		NGUITools.Destroy(gameObject);
 	}
 }
