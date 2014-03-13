@@ -4,12 +4,23 @@ using System.Collections;
 public class Character
 {
 	public int uid;
-	int exp;
+	int exp = 0;
+	public int level = 1;
+	public int levelsChanged = 0;
 
 	public int Exp
 	{
 		get { return exp; }
-		set { exp = value; }
+		set 
+		{
+			exp = value;
+			while (exp > 1000)
+			{
+				exp -= 1000;
+				++levelsChanged;
+				++level;
+			}
+		}
 	}
 
 	public Character()

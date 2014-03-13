@@ -30,6 +30,7 @@ public class UI2DSpriteAnimation : MonoBehaviour
 
 	void Update ()
 	{
+		if (mNguiSprite.enabled == false || mNguiSprite.alpha == 0) return;
 		if (framerate != 0 && frames != null && frames.Length > 0)
 		{
 			float time = ignoreTimeScale ? RealTime.time : Time.time;
