@@ -4,7 +4,7 @@ public class CharacterViewController : MonoBehaviour
 {
 	const int expWidth = 250;
 	const float expToLevel = 1000;
-	UISprite ExpBarFront;
+	UISlider ExpBarFront;
 	UI2DSprite AuraSprite;
 	UILabel LevelText;
 	Character character;
@@ -13,7 +13,7 @@ public class CharacterViewController : MonoBehaviour
 	{
 		character = new Character();
 		AuraSprite = transform.Find("Aura").GetComponent<UI2DSprite>();
-		ExpBarFront = transform.Find("Experience").GetComponent<UISprite>();
+		ExpBarFront = transform.Find("Experience").GetComponent<UISlider>();
 		LevelText = transform.Find("Level").GetComponent<UILabel>();
 		AuraSprite.alpha = 0;
 		AuraSprite.enabled = false;
@@ -43,18 +43,22 @@ public class CharacterViewController : MonoBehaviour
 	{
 		float exp = character.Exp;
 		Debug.Log ("EXP " + exp);
-		float percentage = (exp / expToLevel);
+		float percentage = 0;
+		percentage = (exp / expToLevel);
 		Debug.Log ("Percentage " + percentage);
 
-		if (percentage == 0)
-		{
-			ExpBarFront.enabled = false;
-		}
-		else
-		{
-			ExpBarFront.enabled = true;
-			ExpBarFront.width = (int)(percentage * expWidth);
-		}
+//		if (percentage == 0)
+//		{
+//			//NGUITools.SetActive(ExpBarFront.gameObject, false);
+//			//ExpBarFront.enabled = false;
+//		}
+//		else
+//		{
+			//NGUITools.SetActive(ExpBarFront.gameObject, true);
+			//ExpBarFront.enabled = true;
+			//ExpBarFront.width = (int)(percentage * expWidth);
+			ExpBarFront.value = percentage;
+//		}
 	}
 
 	void SetLevelText ()

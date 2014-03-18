@@ -14,7 +14,7 @@ public class Character
 		set 
 		{
 			exp = value;
-			while (exp > 1000)
+			while (exp >= 1000)
 			{
 				exp -= 1000;
 				++levelsChanged;
