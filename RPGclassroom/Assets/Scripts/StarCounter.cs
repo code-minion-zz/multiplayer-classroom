@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ExpIndicator : MonoBehaviour {
+public class StarCounter : MonoBehaviour {
 
 //	bool dirty = false;
 	int stars = 0;
@@ -14,7 +14,7 @@ public class ExpIndicator : MonoBehaviour {
 //			dirty = true;
 		}
 	}
-	public GameObject[] starArray;
+	public UISprite[] starArray;
 
 	// Use this for initialization
 	void Start () {

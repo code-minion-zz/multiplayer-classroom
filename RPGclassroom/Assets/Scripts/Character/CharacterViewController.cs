@@ -4,7 +4,7 @@ public class CharacterViewController : MonoBehaviour
 {
 	const int expWidth = 250;
 	const float expToLevel = 1000;
-	ExpIndicator expDisplay;
+	StarCounter expDisplay;
 	UI2DSprite AuraSprite;
 	UILabel LevelText;
 	Character character;
@@ -13,7 +13,7 @@ public class CharacterViewController : MonoBehaviour
 	{
 		character = new Character();
 		AuraSprite = transform.Find("Aura").GetComponent<UI2DSprite>();
-		expDisplay = transform.Find("Experience").GetComponent<ExpIndicator>();
+		expDisplay = transform.Find("Experience").GetComponent<StarCounter>();
 		LevelText = transform.Find("Level").GetComponent<UILabel>();
 		AuraSprite.alpha = 0;
 		AuraSprite.enabled = false;
