@@ -42,7 +42,7 @@ public class CharacterViewController : MonoBehaviour
 
         Debug.Log("Exp Gained " + exp);
 
-		Classroom.Singleton.DestroyGameObject(gameObject);
+		//Classroom.Singleton.DestroyGameObject(gameObject);
 		Classroom.Singleton.DisplayReward(exp, gameObject);
 	}
 

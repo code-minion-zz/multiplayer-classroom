@@ -15,7 +15,6 @@ public class StarCounter : MonoBehaviour {
 //			dirty = true;
 		}
 	}
-	public UISprite[] starArray;
     private List<Star> starsList = new List<Star>();
 
 	// Use this for initialization
