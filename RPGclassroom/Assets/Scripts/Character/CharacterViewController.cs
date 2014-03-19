@@ -4,7 +4,7 @@ public class CharacterViewController : MonoBehaviour
 {
 	const int expWidth = 250;
 	const float expToLevel = 1000;
-	UISlider ExpBarFront;
+	ExpIndicator expDisplay;
 	UI2DSprite AuraSprite;
 	UILabel LevelText;
 	Character character;
@@ -13,7 +13,7 @@ public class CharacterViewController : MonoBehaviour
 	{
 		character = new Character();
 		AuraSprite = transform.Find("Aura").GetComponent<UI2DSprite>();
-		ExpBarFront = transform.Find("Experience").GetComponent<UISlider>();
+		expDisplay = transform.Find("Experience").GetComponent<ExpIndicator>();
 		LevelText = transform.Find("Level").GetComponent<UILabel>();
 		AuraSprite.alpha = 0;
 		AuraSprite.enabled = false;
@@ -57,7 +57,7 @@ public class CharacterViewController : MonoBehaviour
 			//NGUITools.SetActive(ExpBarFront.gameObject, true);
 			//ExpBarFront.enabled = true;
 			//ExpBarFront.width = (int)(percentage * expWidth);
-			ExpBarFront.value = percentage;
+			//expDisplay.value = percentage;
 //		}
 	}
 
