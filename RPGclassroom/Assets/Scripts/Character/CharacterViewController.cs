@@ -22,18 +22,25 @@ public class CharacterViewController : MonoBehaviour
 
 	public void GiveExp(int exp)
 	{
-		character.Exp += exp;
+        for (int i = 1; i <= exp; ++i)
+        {
+            int prevLevel = character.level;
 
-		SetExpBar();
+            character.Exp++;
 
-		Debug.Log ("Exp Gained " + exp);
+            expDisplay.ActivateMoreStars(1);
+            SetExpBar();
 
-		if (character.levelsChanged > 0)
-		{
-//			Debug.Log("Before SetLevelText");
-			SetLevelText ();
-//			Debug.Log("After SetLevelText");
-		}
+            // If the level changed we want to reset the stars
+            // and change the text for the new level.
+            if (character.levelsChanged > 0)
+            {
+                SetLevelText();
+                expDisplay.ResetStars();
+            }
+        }
+
+        Debug.Log("Exp Gained " + exp);
 
 		Classroom.Singleton.DestroyGameObject(gameObject);
 		Classroom.Singleton.DisplayReward(exp, gameObject);
