@@ -7,6 +7,7 @@ public class CharacterViewController : MonoBehaviour
 	StarCounter expDisplay;
 	UI2DSprite AuraSprite;
 	UILabel LevelText;
+	UILabel NameText;
 	Character character;
 
 	void Awake()
@@ -15,9 +16,23 @@ public class CharacterViewController : MonoBehaviour
 		AuraSprite = transform.Find("Aura").GetComponent<UI2DSprite>();
 		expDisplay = transform.Find("Experience").GetComponent<StarCounter>();
 		LevelText = transform.Find("Level").GetComponent<UILabel>();
+		NameText = transform.Find("Name").GetComponent<UILabel>();
 		AuraSprite.alpha = 0;
 		AuraSprite.enabled = false;
 		SetExpBar();
+	}
+
+	void Start()
+	{
+		if (string.IsNullOrEmpty(character.Name))
+		{
+			SetName(character.Name);
+		}
+	}
+
+	void SetName(string name)
+	{
+		NameText.text = name;
 	}
 
 	public void GiveExp(int exp)
