@@ -23,10 +23,6 @@ public class Classroom : MonoBehaviour {
 
 	public GameObject expPrefab;
 
-	List<GameObject> rewardLabelPool;
-
-	int poolSize = 10;
-
 	public Character[] GetCharacters()
 	{
 		return allPlayers.ToArray();
@@ -34,7 +30,7 @@ public class Classroom : MonoBehaviour {
 
 	void Awake()
 	{
-		rewardLabelPool = new List<GameObject>(poolSize);
+
 	}
 
 	void OnEnable()
@@ -63,27 +59,11 @@ public class Classroom : MonoBehaviour {
 
 	public void DisplayReward(int amount, GameObject character)
 	{
-		if (rewardLabelPool.Count < poolSize)
-		{
-			GameObject exp = NGUITools.AddChild(character, expPrefab);
-			rewardLabelPool.Add(exp);
-			exp.GetComponent<UILabel>().text = amount.ToString();
-			StartCoroutine("RemoveReward");
-		}
-	}
+        // Create an exp label, set the text of it to the star amount.
+		GameObject exp = NGUITools.AddChild(character, expPrefab);
+		exp.GetComponent<UILabel>().text = amount.ToString();
 
-	IEnumerator RemoveReward()
-	{
-		yield return new WaitForSeconds(1f);
-		NGUITools.SetActive(rewardLabelPool.Last(), false);
-		StartCoroutine(DestroyGameObject(rewardLabelPool.Last()));
-		rewardLabelPool.RemoveAt(0);
-	}
-
-	public IEnumerator DestroyGameObject(GameObject go)
-	{
-		yield return new WaitForFixedUpdate();
-
-		NGUITools.Destroy(go);
+        // Destory it after 1 second.
+        GameObject.Destroy(exp, 1.0f);
 	}
 }
