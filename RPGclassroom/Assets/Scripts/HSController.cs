@@ -4,8 +4,8 @@ using System.Collections;
 public class HSController : MonoBehaviour
 {
     private string secretKey = "mySecretKey"; // Edit this value and make sure it's the same as the one stored on the server
-    public string addScoreURL = "http://localhost/unity_test/addscore.php?"; //be sure to add a ? to your url
-    public string highscoreURL = "http://localhost/unity_test/display.php";
+    public string addScoreURL = "http://54.200.154.175/addscore.php?"; //be sure to add a ? to your url
+    public string highscoreURL = "http://54.200.154.175/display.php";
 
     void Start()
     {
@@ -53,7 +53,9 @@ public class HSController : MonoBehaviour
 
         if (hs_get.error != null)
         {
-            print("There was an error getting the high score: " + hs_get.error);
+            //print("There was an error getting the high score: " + hs_get.error);
+
+            gameObject.guiText.text = "There was an error getting the high score: " + hs_get.error;
         }
         else
         {
