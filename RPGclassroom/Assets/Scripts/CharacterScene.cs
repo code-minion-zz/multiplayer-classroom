@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CharacterScene : MonoBehaviour {
+public class CharacterScene : MonoBehaviour
+{
 		
 	static CharacterScene characterScene;
 

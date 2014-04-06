@@ -19,12 +19,12 @@ public class CharacterViewController : MonoBehaviour
 	{
 		character = new Character();
 
-		AuraSprite = transform.Find("Aura").GetComponent<UI2DSprite>();
-		expDisplay = transform.Find("Experience").GetComponent<StarCounter>();
-		LevelText = transform.Find("Level").GetComponent<UILabel>();
-		NameText = transform.Find("Name").GetComponent<UILabel>();
-		AuraSprite.alpha = 0;
-		AuraSprite.enabled = false;
+        //AuraSprite = transform.Find("Aura").GetComponent<UI2DSprite>();
+        //expDisplay = transform.Find("Experience").GetComponent<StarCounter>();
+        //LevelText = transform.Find("Level").GetComponent<UILabel>();
+        NameText = transform.Find("Name").GetComponent<UILabel>();
+        //AuraSprite.alpha = 0;
+        //AuraSprite.enabled = false;
 		SetExpBar();
 		RandomName();
 	}
@@ -132,19 +132,6 @@ public class CharacterViewController : MonoBehaviour
 		float percentage = 0;
 		percentage = (exp / expToLevel);
 		Debug.Log ("Percentage " + percentage);
-
-//		if (percentage == 0)
-//		{
-//			//NGUITools.SetActive(ExpBarFront.gameObject, false);
-//			//ExpBarFront.enabled = false;
-//		}
-//		else
-//		{
-			//NGUITools.SetActive(ExpBarFront.gameObject, true);
-			//ExpBarFront.enabled = true;
-			//ExpBarFront.width = (int)(percentage * expWidth);
-			//expDisplay.value = percentage;
-//		}
 	}
 
 	IEnumerator LimitedLife(GameObject go)

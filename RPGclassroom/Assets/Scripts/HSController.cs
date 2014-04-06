@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class HSController : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class HSController : MonoBehaviour
     [ContextMenu("Post Scores")]
     public void StartPostScores()
     {
-         StartCoroutine(PostScores("TestName", 9999));
+         StartCoroutine(PostScores("TestNameABC", 900000000));
     }
 
     [ContextMenu("Get Scores")]
@@ -39,8 +40,17 @@ public class HSController : MonoBehaviour
 
         if (hs_post.error != null)
         {
-            print("There was an error posting the high score: " + hs_post.error);
+            //print("There was an error posting the high score: " + hs_post.error);
+
+            gameObject.guiText.text = "There was an error posting the high score: " + hs_post.error;
+            Debug.Log(gameObject.guiText.text);
         }
+        else
+        {
+            gameObject.guiText.text = hs_post.text;
+            Debug.Log(hs_post.text);
+        }
+  
     }
 
     // Get the scores from the MySQL DB to display in a GUIText.
@@ -48,7 +58,8 @@ public class HSController : MonoBehaviour
     IEnumerator GetScores()
     {
         gameObject.guiText.text = "Loading Scores";
-        WWW hs_get = new WWW(highscoreURL);
+       
+        WWW hs_get = new WWW(highscoreURL + "t=" + DateTime.Now.Second);
         yield return hs_get;
 
         if (hs_get.error != null)
@@ -59,7 +70,8 @@ public class HSController : MonoBehaviour
         }
         else
         {
-            gameObject.guiText.text = hs_get.text; // this is a GUIText that will display the scores in game.
+            //gameObject.guiText.text = hs_get.text; // this is a GUIText that will display the scores in game.
+            Debug.Log(hs_get.text);
         }
     }
 
