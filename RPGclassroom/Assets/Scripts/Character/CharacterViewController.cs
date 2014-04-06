@@ -132,19 +132,6 @@ public class CharacterViewController : MonoBehaviour
 		float percentage = 0;
 		percentage = (exp / expToLevel);
 		Debug.Log ("Percentage " + percentage);
-
-//		if (percentage == 0)
-//		{
-//			//NGUITools.SetActive(ExpBarFront.gameObject, false);
-//			//ExpBarFront.enabled = false;
-//		}
-//		else
-//		{
-			//NGUITools.SetActive(ExpBarFront.gameObject, true);
-			//ExpBarFront.enabled = true;
-			//ExpBarFront.width = (int)(percentage * expWidth);
-			//expDisplay.value = percentage;
-//		}
 	}
 
 	IEnumerator LimitedLife(GameObject go)
