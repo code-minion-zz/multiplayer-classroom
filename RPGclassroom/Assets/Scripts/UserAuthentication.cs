@@ -3,39 +3,41 @@ using System.Collections;
 
 public class UserAuthentication : MonoBehaviour 
 {
-    public string loginURL = "http://localhost/unity_test/addscore.php?";
-    public string sceneToLoad = "";
+    public delegate void LoginEvent(WWW data);
+    public event LoginEvent onLoginAttempt;
 
     private string username;
     private string password;
+    private WWW fetchData;
 
-    private bool canLogin;
-
-    public bool AttemptLogin(string name, string password)
+    public void AttemptLogin(string email, string password)
     {
-        username = name;
+        this.username = email;
         this.password = password;
+        fetchData = null;
 
-        CheckPassword();
+        WWWForm sendLoginInfo = new WWWForm();
+        sendLoginInfo.AddField("email", username);
+        sendLoginInfo.AddField("password", password);
 
-        return canLogin;
+        StartCoroutine(AuthenticateInfo());
     }
 
-    IEnumerator CheckPassword()
+    IEnumerator AuthenticateInfo()
     {
         // Set the WWWFORM to send to the PHP Page
         var sendLoginInfo = new WWWForm();
-        sendLoginInfo.AddField("Username", username);
-        sendLoginInfo.AddField("Password", password);
+        sendLoginInfo.AddField("email", username);
+        sendLoginInfo.AddField("password", password);
 
         // Send the WWWForm via WWW
-        var getData = new WWW(loginURL, sendLoginInfo);
-        yield return getData; // Wait for the data return
-        bool.TryParse(getData.text, out canLogin); // Check if the data contains TRUE flag
-        
-        if (!canLogin)
+        fetchData = new WWW(URLHelper.authenticateURL, sendLoginInfo);
+        // Wait for the data return
+        yield return fetchData;
+
+        if (onLoginAttempt != null)
         {
-            Debug.LogWarning("Invalid username or password.");
+            onLoginAttempt(fetchData);
         }
     }
 }

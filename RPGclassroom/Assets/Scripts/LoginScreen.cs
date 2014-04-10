@@ -1,22 +1,74 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
+[RequireComponent(typeof(UserAuthentication))]
+[RequireComponent(typeof(UserRetrieveData))]
 public class LoginScreen : MonoBehaviour 
 {
-    public UserAuthentication userAuthentication;
     public string studentScene = "studentMain";
     public string teacherScene = "teacherMain";
 
-    public UILabel usernameField;
-    public UILabel passwordField;
+    public const int INVALID_ID = -1;
+    public UIInput usernameField;
+    public UIInput passwordField;
+
+    private UserAuthentication userAuthentication;
+    private UserRetrieveData userRetrieveData;
+    private bool succeeded;
+
+    public void Awake()
+    {
+        // Setup the observers.
+        userAuthentication = GetComponent<UserAuthentication>();
+        userRetrieveData = GetComponent<UserRetrieveData>();
+        userAuthentication.onLoginAttempt += OnLoginAttempt;
+        userRetrieveData.onDataRetrieved += OnUserDataRetrieved;
+    }
 
     public void AttemptLogin()
     {
-        bool loggedIn = userAuthentication.AttemptLogin(usernameField.text, passwordField.text);
-
-        if (loggedIn)
+        if (succeeded == false)
         {
-            Application.LoadLevel(studentScene);
+            userAuthentication.AttemptLogin(usernameField.value, passwordField.value);
         }
+    }
+
+    /// <summary>
+    /// This is an observer that will only be called after attempt login on the userAuthentication has been called.
+    /// </summary>
+    /// <param name="data"></param>
+    private void OnLoginAttempt(WWW data)
+    {
+        // Check if the data contains TRUE flag
+        bool.TryParse(data.text, out succeeded);
+
+        if (succeeded == false)
+        {
+            Debug.LogWarning("Invalid username or password.");
+        }
+        else
+        {
+            // Get the UserID from the response.
+            int userId = INVALID_ID;
+            Int32.TryParse(data.responseHeaders["ID"], out userId);
+
+            if (userId != INVALID_ID)
+            {
+                // Now retrieve all the data.
+                Debug.Log("Succeeded: UserID=" + userId);
+                userRetrieveData.RetrieveData(userId);
+            }
+            else
+            {
+                succeeded = false;
+            }
+        }
+    }
+
+    private void OnUserDataRetrieved()
+    {
+        Debug.Log("Data Retrieved");
+        //Application.LoadLevel(studentScene);
     }
 }
