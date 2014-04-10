@@ -69,6 +69,6 @@ public class LoginScreen : MonoBehaviour
     private void OnUserDataRetrieved()
     {
         Debug.Log("Data Retrieved");
-        //Application.LoadLevel(studentScene);
+        Application.LoadLevel(studentScene);
     }
 }
