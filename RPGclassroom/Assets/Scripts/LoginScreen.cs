@@ -17,6 +17,10 @@ public class LoginScreen : MonoBehaviour
     private UserRetrieveData userRetrieveData;
     private bool succeeded;
 
+	private float elapsedTime = 0;
+	private float fadeInTime = 1f;
+	private GameObject uiObject;
+
     public void Awake()
     {
         // Setup the observers.
@@ -24,7 +28,16 @@ public class LoginScreen : MonoBehaviour
         userRetrieveData = GetComponent<UserRetrieveData>();
         userAuthentication.onLoginAttempt += OnLoginAttempt;
         userRetrieveData.onDataRetrieved += OnUserDataRetrieved;
+		uiObject = GameObject.Find("UI");
+		NGUITools.SetActive(uiObject, false);
     }
+
+	public void Update()
+	{
+		if (uiObject.activeInHierarchy) return;
+		if (elapsedTime > fadeInTime) NGUITools.SetActive(uiObject, true);
+		else elapsedTime += Time.deltaTime;
+	}
 
     public void AttemptLogin()
     {

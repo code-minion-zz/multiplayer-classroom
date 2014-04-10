@@ -8,8 +8,8 @@ public class UserRetrieveData : MonoBehaviour
     public event RetrieveDataEvent onDataRetrieved;
 
     private int _userID;
-    private bool _characterRetrieved;
-    private bool _attendanceRetrieved;
+    private bool _characterRetrieved = false;
+    private bool _attendanceRetrieved = false;
 
     public void RetrieveData(int userId)
     {
@@ -32,6 +32,8 @@ public class UserRetrieveData : MonoBehaviour
         // Wait for the data return
         var fetch = new WWW(URLHelper.getAttendanceURL, requestAttendance);
         yield return fetch;
+		
+		Debug.Log("Attendance fetched");
 
         _attendanceRetrieved = true;
     }
@@ -40,12 +42,14 @@ public class UserRetrieveData : MonoBehaviour
     {
         var requestCharacter = new WWWForm();
         requestCharacter.AddField("user", _userID);
-
-        Debug.Log("Fetching character");
+		
+		Debug.Log("Fetching character");
 
         // Wait for the data return
         var fetch = new WWW(URLHelper.getCharacterURL, requestCharacter);
-        yield return fetch;
+		yield return fetch;
+
+		Debug.Log("Character fetched");
 
         int gold = 0;
         int head = 0;
@@ -85,12 +89,17 @@ public class UserRetrieveData : MonoBehaviour
 
     IEnumerator WaitForAllRequests()
     {
-        bool requests = (_characterRetrieved && _attendanceRetrieved);
-        yield return requests == true;
+		bool requests = false;
 
-        if (onDataRetrieved != null)
-        {
-            onDataRetrieved();
-        }
+		while (!requests){
+			requests = (_characterRetrieved && _attendanceRetrieved);
+			Debug.Log("YIELD RETURN");
+			yield return null;
+		}
+		
+		if (onDataRetrieved != null)
+		{
+			onDataRetrieved();
+		}
     }
 }
