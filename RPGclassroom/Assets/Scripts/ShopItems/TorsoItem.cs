@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TorsoItem : ShopItem
+public class TorsoItem : Item
 {
 
 }

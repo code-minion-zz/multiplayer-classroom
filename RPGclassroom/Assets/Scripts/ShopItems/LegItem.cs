@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LegItem : ShopItem
+public class LegItem : Item
 {
 }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HeadItem : ShopItem 
+public class HeadItem : Item 
 {
 
 }
