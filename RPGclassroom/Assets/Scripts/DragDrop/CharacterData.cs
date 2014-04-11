@@ -20,6 +20,7 @@ public static class CharacterData
     public static int Gold;
     public static int[] Items;
     public static DateTime[] Attendance;
+    public static int Level = 1;
 
     static CharacterData()
     {
