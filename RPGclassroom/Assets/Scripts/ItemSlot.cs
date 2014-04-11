@@ -7,6 +7,11 @@ public class ItemSlot : MonoBehaviour
 
     private Item item;
 
+	public void Initialise(Item item)
+	{
+		EquipItem(item);
+	}
+
     public void EquipItem(Item newItem)
     {
         if (item == newItem) return;

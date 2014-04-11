@@ -15,6 +15,12 @@ public class Item
     {
     }
 
+	public static Item GetItem(int itemID)
+	{
+		// Load items from file/s
+		return null;
+	}
+
     public Item(int itemID, string itemName, int itemCost, int levelRequirement, bool purchased, string spriteName)
     {
         this.itemID = itemID;

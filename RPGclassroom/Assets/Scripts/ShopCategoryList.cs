@@ -6,4 +6,5 @@ public class ShopCategoryList : MonoBehaviour
 {
     public UIGrid grid;
     public List<Item> items = new List<Item>();
+	public List<ShopItem> shopItems = new List<ShopItem>();
 }

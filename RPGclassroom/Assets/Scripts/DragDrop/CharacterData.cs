@@ -20,16 +20,34 @@ public static class CharacterData
     public static int Gold;
     public static int[] Items;
     public static DateTime[] Attendance;
-    public static int Level = 1;
+    public static int Level;
 
     static CharacterData()
     {
         UserID = -1;
         Name = "";
         Gold = 0;
-        Items = new int[6];
+        Items = new int[(int)ShopMain.EShopCategories.MAX];
         Attendance = new DateTime[80];
     }
+
+	public static void InitialiseTestData()
+	{
+		UserID = 0;
+		Name = "Mac";
+		Gold = 5;
+		Level = 1;
+
+		Items[(int)ShopMain.EShopCategories.Eye] = 0;
+		Items[(int)ShopMain.EShopCategories.Feet] = 0;
+		Items[(int)ShopMain.EShopCategories.Hair] = 0;
+		Items[(int)ShopMain.EShopCategories.Head] = 0;
+		Items[(int)ShopMain.EShopCategories.Legs] = 0;
+		Items[(int)ShopMain.EShopCategories.Mouth] = 0;
+		Items[(int)ShopMain.EShopCategories.Skin] = 0;
+		Items[(int)ShopMain.EShopCategories.Skin] = 0;
+		Items[(int)ShopMain.EShopCategories.Torso] = 0;
+	}
 
     public static void SetEquipment(int slot, int item)
     {
