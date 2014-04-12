@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 public class UserRetrieveData : MonoBehaviour 
 {
@@ -83,6 +85,34 @@ public class UserRetrieveData : MonoBehaviour
         CharacterData.Items[3] = legs;
         CharacterData.Items[4] = shoes;
         CharacterData.Items[5] = background;
+
+		// Grab attendance
+		string attendance = fetch.responseHeaders["Attendance"]; 
+
+		// Split the massive attendance string into separate dates
+		string[] attendanceDates = Regex.Split(attendance, "\n");
+
+		// Add each date attended to character data attendance
+		foreach (string date in attendanceDates)
+		{
+			CharacterData.Attendance.Add(new CQDate(date));
+		}
+
+		// Set Term info
+		string term = fetch.responseHeaders["Term"];
+
+		string[] termValues = Regex.Split(term, "\t");
+
+		// ID, StartDate, Enddate
+		int termID = int.Parse(termValues[0]);
+		CharacterData.termStartDate = new CQDate(termValues[1]);
+		CharacterData.termEndDate = new CQDate(termValues[2]);
+
+		TimeSpan timeSpan = CharacterData.termStartDate - CharacterData.termEndDate;
+
+		CharacterData.weeksInTerm = Mathf.FloorToInt((float)timeSpan.Days / 7.0f);
+
+		CharacterData.loaded = true;
 
         _characterRetrieved = true;
     }

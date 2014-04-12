@@ -19,8 +19,14 @@ public static class CharacterData
     public static string Name;
     public static int Gold;
     public static int[] Items;
-    public static DateTime[] Attendance;
     public static int Level;
+	public static List<CQDate> Attendance;
+
+	public static CQDate termStartDate;
+	public static CQDate termEndDate;
+	public static int weeksInTerm;
+
+	public static bool loaded = false;
 
     static CharacterData()
     {
@@ -28,13 +34,13 @@ public static class CharacterData
         Name = "";
         Gold = 0;
         Items = new int[(int)ShopMain.EShopCategories.MAX];
-        Attendance = new DateTime[80];
+        Attendance = new List<CQDate>();
     }
 
 	public static bool initialised = false;
 	public static void InitialiseTestData()
 	{
-		if (!initialised)
+		if (!initialised && !loaded)
 		{
 			UserID = 0;
 			Name = "Mac";

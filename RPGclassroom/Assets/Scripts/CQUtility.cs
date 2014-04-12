@@ -22,4 +22,5 @@ public static class CQUtility
 
         return hashString.PadLeft(32, '0');
     }
+
 }
