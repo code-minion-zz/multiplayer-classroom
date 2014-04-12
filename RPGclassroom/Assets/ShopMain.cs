@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class ShopMain : MonoBehaviour 
 {
-
 	/// <summary>
 	/// Keep this enum alphabetically ordered. Update the lists in the inspector if anything new is introduced.
 	/// ItemSlots on the Avatar object need updating and,
@@ -24,6 +23,10 @@ public class ShopMain : MonoBehaviour
         MAX,
     }
 
+	public UILabel studentName;
+	public UILabel studentLevel;
+	public UILabel studentGold;
+
 	public CharacterAvatar avatar;
 
     public UIToggle firstToggle;
@@ -32,46 +35,59 @@ public class ShopMain : MonoBehaviour
 
     bool initialised;
 
-	private UIToggle currentToggle;
+	public static UIToggle currentToggle;
+	public static int currentCategory;
 
     public void Start()
     {
+		CharacterData.InitialiseTestData();
+
+		studentName.text = CharacterData.Name;
+		studentLevel.text = "Level " + CharacterData.Level.ToString();
+		studentGold.text = CharacterData.Gold.ToString();
+
         // Test Items (This is our database for now.
-        shopCategoryLists[(int)EShopCategories.Hair].items.Add(new Item(0, "Bald", 0, 1, true, "Bald"));
-        shopCategoryLists[(int)EShopCategories.Hair].items.Add(new Item(0, "Long Hair", 1, 1, true, "LongHair1"));
-        shopCategoryLists[(int)EShopCategories.Hair].items.Add(new Item(0, "Long Hair", 2, 2, true, "LongHair2"));
-        shopCategoryLists[(int)EShopCategories.Hair].items.Add(new Item(0, "Short Hair", 1, 1, true, "ShortHair1"));
-        shopCategoryLists[(int)EShopCategories.Hair].items.Add(new Item(0, "Short Hair", 2, 2, true, "ShortHair2"));
+        shopCategoryLists[(int)EShopCategories.Hair].items.Add(Item.GetItem(0));
+		shopCategoryLists[(int)EShopCategories.Hair].items.Add(Item.GetItem(1));
+		shopCategoryLists[(int)EShopCategories.Hair].items.Add(Item.GetItem(2));
+		shopCategoryLists[(int)EShopCategories.Hair].items.Add(Item.GetItem(3));
+		shopCategoryLists[(int)EShopCategories.Hair].items.Add(Item.GetItem(4));
+		shopCategoryLists[(int)EShopCategories.Hair].items.Add(Item.GetItem(5));
 
-        shopCategoryLists[(int)EShopCategories.Head].items.Add(new Item(0, "Beanie", 0, 1, true, "Beanie"));
-        shopCategoryLists[(int)EShopCategories.Head].items.Add(new Item(0, "Hat", 0, 2, true, "Beanie"));
-        shopCategoryLists[(int)EShopCategories.Head].items.Add(new Item(0, "Beanie", 1, 2, true, "Beanie"));
-        shopCategoryLists[(int)EShopCategories.Head].items.Add(new Item(0, "Cap", 1, 2, true, "Beanie"));
-        shopCategoryLists[(int)EShopCategories.Head].items.Add(new Item(0, "Cowboy Hat", 3, 3, true, "Beanie"));
-        shopCategoryLists[(int)EShopCategories.Head].items.Add(new Item(0, "Police Hat", 3, 3, true, "Beanie"));
-        shopCategoryLists[(int)EShopCategories.Head].items.Add(new Item(0, "Fireman Helmet", 3, 3, true, "Beanie"));
+		shopCategoryLists[(int)EShopCategories.Head].items.Add(Item.GetItem(50));
+		shopCategoryLists[(int)EShopCategories.Head].items.Add(Item.GetItem(51));
+		shopCategoryLists[(int)EShopCategories.Head].items.Add(Item.GetItem(52));
+		shopCategoryLists[(int)EShopCategories.Head].items.Add(Item.GetItem(53));
+		shopCategoryLists[(int)EShopCategories.Head].items.Add(Item.GetItem(54));
+		shopCategoryLists[(int)EShopCategories.Head].items.Add(Item.GetItem(55));
+		shopCategoryLists[(int)EShopCategories.Head].items.Add(Item.GetItem(56));
+		shopCategoryLists[(int)EShopCategories.Head].items.Add(Item.GetItem(57));
 
-        shopCategoryLists[(int)EShopCategories.Torso].items.Add(new Item(0, "TShirt", 0, 1, true, "TShirt1"));
-        shopCategoryLists[(int)EShopCategories.Torso].items.Add(new Item(0, "TShirt", 0, 1, true, "TShirt2"));
-        shopCategoryLists[(int)EShopCategories.Torso].items.Add(new Item(0, "Hoodie", 0, 1, true, "Hoodie"));
-        shopCategoryLists[(int)EShopCategories.Torso].items.Add(new Item(0, "Police Shirt", 0, 1, true, "PoliceShirt"));
-        shopCategoryLists[(int)EShopCategories.Torso].items.Add(new Item(0, "Blazer", 0, 1, true, "ShirtBlazer"));
+		shopCategoryLists[(int)EShopCategories.Torso].items.Add(Item.GetItem(100));
+		shopCategoryLists[(int)EShopCategories.Torso].items.Add(Item.GetItem(101));
+		shopCategoryLists[(int)EShopCategories.Torso].items.Add(Item.GetItem(102));
+		shopCategoryLists[(int)EShopCategories.Torso].items.Add(Item.GetItem(103));
+		shopCategoryLists[(int)EShopCategories.Torso].items.Add(Item.GetItem(104));
 
-		shopCategoryLists[(int)EShopCategories.Skin].items.Add(new Item(0, "White", 0, 1, true, "White"));
-		shopCategoryLists[(int)EShopCategories.Skin].items.Add(new Item(0, "Brown", 0, 1, true, "Brown"));
-		shopCategoryLists[(int)EShopCategories.Skin].items.Add(new Item(0, "Black", 0, 1, true, "Black"));
+		shopCategoryLists[(int)EShopCategories.Skin].items.Add(Item.GetItem(150));
+		shopCategoryLists[(int)EShopCategories.Skin].items.Add(Item.GetItem(151));
+		shopCategoryLists[(int)EShopCategories.Skin].items.Add(Item.GetItem(152));
 
-        shopCategoryLists[(int)EShopCategories.Legs].items.Add(new Item(0, "Shorts", 0, 1, true, "Shorts"));
-        shopCategoryLists[(int)EShopCategories.Legs].items.Add(new Item(0, "Skirt", 0, 1, true, "Skirt"));
-        shopCategoryLists[(int)EShopCategories.Legs].items.Add(new Item(0, "Blue Jeans", 0, 1, true, "BlueJeans"));
-        shopCategoryLists[(int)EShopCategories.Legs].items.Add(new Item(0, "Track Pants", 0, 1, true, "TrackPants"));
-        shopCategoryLists[(int)EShopCategories.Legs].items.Add(new Item(0, "Cargo Pants", 0, 1, true, "CargoPants"));
+        shopCategoryLists[(int)EShopCategories.Legs].items.Add(Item.GetItem(200));
+        shopCategoryLists[(int)EShopCategories.Legs].items.Add(Item.GetItem(201));
+        shopCategoryLists[(int)EShopCategories.Legs].items.Add(Item.GetItem(202));
+        shopCategoryLists[(int)EShopCategories.Legs].items.Add(Item.GetItem(203));
+        shopCategoryLists[(int)EShopCategories.Legs].items.Add(Item.GetItem(204));
+															  
+        shopCategoryLists[(int)EShopCategories.Feet].items.Add(Item.GetItem(250));
+        shopCategoryLists[(int)EShopCategories.Feet].items.Add(Item.GetItem(251));
+        shopCategoryLists[(int)EShopCategories.Feet].items.Add(Item.GetItem(252));
+        shopCategoryLists[(int)EShopCategories.Feet].items.Add(Item.GetItem(253));
+        shopCategoryLists[(int)EShopCategories.Feet].items.Add(Item.GetItem(254));
 
-        shopCategoryLists[(int)EShopCategories.Feet].items.Add(new Item(0, "Jandals", 0, 1, true, "Jandals"));
-        shopCategoryLists[(int)EShopCategories.Feet].items.Add(new Item(0, "Black Boots", 0, 1, true, "BlackWorkBoots"));
-        shopCategoryLists[(int)EShopCategories.Feet].items.Add(new Item(0, "Brown Boots", 0, 1, true, "BrownBoots"));
-        shopCategoryLists[(int)EShopCategories.Feet].items.Add(new Item(0, "Sneakers", 0, 1, true, "Sneakers"));
-        shopCategoryLists[(int)EShopCategories.Feet].items.Add(new Item(0, "Shoes", 0, 1, true, "GirlShoes"));
+		shopCategoryLists[(int)EShopCategories.Eye].items.Add(Item.GetItem(300));
+
+		shopCategoryLists[(int)EShopCategories.Mouth].items.Add(Item.GetItem(350));
 
         // Put items into categories and sort them out.
         for (int i = 0; i < shopCategoryLists.Length; ++i)
@@ -80,6 +96,8 @@ public class ShopMain : MonoBehaviour
 
             foreach (Item item in shopCategoryLists[i].items)
             {
+				shopCategoryLists[i].shopCategory = i;
+
                 GameObject shopItemObject = GameObject.Instantiate(Resources.Load("Prefabs/ShopItem")) as GameObject;
                 ShopItem shopItem = shopItemObject.GetComponent<ShopItem>();		
 
@@ -91,7 +109,9 @@ public class ShopMain : MonoBehaviour
 				shopCategoryLists[i].shopItems.Add(shopItem);
             }
 
+			// Resort the list
             shopCategoryLists[i].grid.Reposition();
+
             shopCategoryLists[i].gameObject.SetActive(false);
         }  
     }
@@ -101,22 +121,18 @@ public class ShopMain : MonoBehaviour
         // This will ensure that only one list is toggled on and displayed.
         if (!initialised)
         {
-			for (int i = 0; i < shopCategoryLists.Length; ++i)
-			{
-				shopCategoryLists[i].gameObject.SetActive(false);
-			}
-
 			firstToggle.value = true;
-
-
 			currentToggle = firstToggle;
+			UIToggle.current = currentToggle;
 
 			initialised = true;
 
 			ItemSlot newSlot = currentToggle.GetComponent<ItemSlot>();
 			int newSlotID = avatar.GetItemSlotID(newSlot);
-			shopCategoryLists[newSlotID].gameObject.SetActive(true);
+			shopCategoryLists[newSlotID].Toggle();
         }
+
+		studentGold.text = CharacterData.Gold.ToString();
     }
 
 	public void ShopCategoryToggle()
@@ -129,12 +145,12 @@ public class ShopMain : MonoBehaviour
 			// Disable current shop categories
 			ItemSlot currentSlot = currentToggle.GetComponent<ItemSlot>();
 			int currentSlotID = avatar.GetItemSlotID(currentSlot);
-			shopCategoryLists[currentSlotID].gameObject.SetActive(false);
+			shopCategoryLists[currentSlotID].Toggle();
 
 			// Enable new shop categories
 			ItemSlot newSlot = UIToggle.current.GetComponent<ItemSlot>();
 			int newSlotID = avatar.GetItemSlotID(newSlot);
-			shopCategoryLists[newSlotID].gameObject.SetActive(true);
+			shopCategoryLists[newSlotID].Toggle();
 
 			// Set new toggled
 			currentToggle = UIToggle.current;

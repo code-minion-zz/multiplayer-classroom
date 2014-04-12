@@ -17,7 +17,7 @@ public class ShopItem : MonoBehaviour
     private bool canBuy;
     private bool canEquip;
 
-    private Item item;
+    public Item item;
 
     public void Start()
     {
@@ -31,12 +31,14 @@ public class ShopItem : MonoBehaviour
 
         this.item = item;
 
+		sprite.spriteName = item.spriteName;
+
         // Disable the lock sprites if the items are unlocked
         if (item.unlocked)
         {
-            lockedSprite.enabled = false;
-            redBannerSprite.enabled = false;
-            levelReqLabel.enabled = false;
+			lockedSprite.enabled = false;
+			redBannerSprite.enabled = false;
+			levelReqLabel.enabled = false;
         }
         else
         {
@@ -46,7 +48,7 @@ public class ShopItem : MonoBehaviour
             levelReqLabel.text = "Req Lv " + item.levelRequirement;
         }
 
-        if (item.purchased)
+        if (!item.purchased)
         {
             costLabel.enabled = true;
             costLabel.text = item.itemCost.ToString();
@@ -54,6 +56,7 @@ public class ShopItem : MonoBehaviour
         else
         {
             costLabel.enabled = false;
+			goldCoinSprite.enabled = false;
         }
     }
 
@@ -80,19 +83,37 @@ public class ShopItem : MonoBehaviour
 
     public void OnClick()
     {
-        if (canBuy)
-        {
-            Purchase();
-        }
+		if (button.enabled == false)
+			return;
+
+		if (!item.unlocked)
+			return;
+
+		if (!item.purchased)
+		{
+			if (CharacterData.Gold >= item.itemCost)
+			{
+				Purchase();
+				Equip();
+			}
+		}
+		else
+		{
+			Equip();
+		}
     }
 
     public void Purchase()
     {
-        
+		CharacterData.Gold -= item.itemCost;
+		item.purchased = true;
+		costLabel.enabled = false;
+		goldCoinSprite.enabled = false;
     }
 
     public void Equip()
     {
-
+		ItemSlot itemSlot = ShopMain.currentToggle.GetComponent<ItemSlot>();
+		itemSlot.EquipItem(item);
     }
 }

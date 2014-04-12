@@ -31,22 +31,27 @@ public static class CharacterData
         Attendance = new DateTime[80];
     }
 
+	public static bool initialised = false;
 	public static void InitialiseTestData()
 	{
-		UserID = 0;
-		Name = "Mac";
-		Gold = 5;
-		Level = 1;
+		if (!initialised)
+		{
+			UserID = 0;
+			Name = "Mac";
+			Gold = 5;
+			Level = 1;
 
-		Items[(int)ShopMain.EShopCategories.Eye] = 0;
-		Items[(int)ShopMain.EShopCategories.Feet] = 0;
-		Items[(int)ShopMain.EShopCategories.Hair] = 0;
-		Items[(int)ShopMain.EShopCategories.Head] = 0;
-		Items[(int)ShopMain.EShopCategories.Legs] = 0;
-		Items[(int)ShopMain.EShopCategories.Mouth] = 0;
-		Items[(int)ShopMain.EShopCategories.Skin] = 0;
-		Items[(int)ShopMain.EShopCategories.Skin] = 0;
-		Items[(int)ShopMain.EShopCategories.Torso] = 0;
+			Items[(int)ShopMain.EShopCategories.Eye] = 300;
+			Items[(int)ShopMain.EShopCategories.Feet] = 251;
+			Items[(int)ShopMain.EShopCategories.Hair] = 3;
+			Items[(int)ShopMain.EShopCategories.Head] = 51;
+			Items[(int)ShopMain.EShopCategories.Legs] = 200;
+			Items[(int)ShopMain.EShopCategories.Mouth] = 350;
+			Items[(int)ShopMain.EShopCategories.Skin] = 150;
+			Items[(int)ShopMain.EShopCategories.Torso] = 100;
+
+			initialised = true;
+		}
 	}
 
     public static void SetEquipment(int slot, int item)

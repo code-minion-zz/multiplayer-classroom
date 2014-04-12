@@ -9,10 +9,11 @@ public class CharacterAvatar : MonoBehaviour
 	public void Start()
 	{
 		// Equip items based on records.
-		//for(int i = 0; i < (int)ShopMain.EShopCategories.MAX; ++i)
-		//{
-		//    //itemSlots[i].Initialise(new Item(CharacterData.Items[i]));
-		//}
+		for (int i = 0; i < (int)ShopMain.EShopCategories.MAX; ++i)
+		{
+			Item loadedItem = Item.GetItem(CharacterData.Items[i]);
+			itemSlots[i].Initialise(loadedItem, i);
+		}
 	}
 
 	public int GetItemSlotID(ItemSlot item)
